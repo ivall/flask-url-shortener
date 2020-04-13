@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skracacz linków</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+	<form method="post">
+        {{ form.csrf_token }}
+        {{ form.url(placeholder="URL") }}
+        <div class="recaptcha">
+            {{ form.recaptcha }}
+        </div>
+	    <button type="submit" name="submit">Skróć</button><br/>
+	</form>
+	{% if session['mojurl'] %}
+		<h3>Twój ostatni skrócony link: <a href="https://shorty.ct8.pl/{{ session['mojurl'] }}">https://shorty.ct8.pl/{{ session['mojurl'] }}</a></h3>
+	{% endif %}
+</div>&nbsp;
+<p>Wykonanie: <a href="https://ivall.pl">ivall</a></p>
+</body>
+</html>

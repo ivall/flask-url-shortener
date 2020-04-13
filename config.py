@@ -1,0 +1,9 @@
+SECRET_KEY = "secretkey"
+RECAPTCHA_USE_SSL = False
+RECAPTCHA_PUBLIC_KEY = 'recaptchapublic'
+RECAPTCHA_PRIVATE_KEY = 'recaptchaprivate'
+MYSQL_HOST = 'host'
+MYSQL_USER = 'user'
+MYSQL_PASSWORD = 'password'
+MYSQL_DB = 'database'
+MYSQL_CURSORCLASS = 'DictCursor'
