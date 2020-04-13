@@ -1,2 +1,2 @@
-URL shortener in flask.
+URL shortener in flask.<br/>
 LIVE: https://shorty.ct8.pl/
