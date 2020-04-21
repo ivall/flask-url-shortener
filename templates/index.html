@@ -9,18 +9,12 @@
 <body>
 
 <div class="container">
-	<form method="post">
-        {{ form.csrf_token }}
-        {{ form.url(placeholder="URL") }}
-        <div class="recaptcha">
-            {{ form.recaptcha }}
-        </div>
-	    <button type="submit" name="submit">Skróć</button><br/>
-	</form>
-	{% if session['mojurl'] %}
-		<h3>Twój ostatni skrócony link: <a href="https://shorty.ct8.pl/{{ session['mojurl'] }}">https://shorty.ct8.pl/{{ session['mojurl'] }}</a></h3>
-	{% endif %}
+        <input id="url" name="url" placeholder="URL" required type="url">
+	    <button type="submit" class="short" name="submit">Skróć</button><br/>
+		<div class="center"><h3 class="information"></h3> <a href="" class="link"></a></div>
 </div>&nbsp;
 <p>Wykonanie: <a href="https://ivall.pl">ivall</a></p>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='javascript/app.js') }}"></script>
 </body>
 </html>

@@ -48,16 +48,18 @@ h3 {
 }
 p {
 	   position:fixed;
-	   left:0px;
-	   bottom:0px;
+	   left:0;
+	   bottom:0;
 	   height:30px;
 	   width:100%;
 	   text-align: center;
 }
-.recaptcha {
-	margin-top: 25px;
+.center {
 	text-align: center;
 }
-.g-recaptcha {
+.information {
+	display: inline-block;
+}
+.link {
 	display: inline-block;
 }
