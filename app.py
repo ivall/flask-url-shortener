@@ -1,39 +1,33 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, jsonify, abort, request
 from flask_mysqldb import MySQL, MySQLdb
-from flask_wtf import Form, RecaptchaField
-from wtforms import StringField, validators
 import string
 import random
+import validators
 
 app = Flask(__name__)
 app.config.from_object('config')
 mysql = MySQL(app)
 
+
 def random_generator(size=5, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
 
-class UrlForm(Form):
-    url = StringField('url', [validators.DataRequired(), validators.Length(min=6, max=255), validators.url()])
-    recaptcha = RecaptchaField()
-
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    form = UrlForm()
-    if request.method == 'GET':
-        return render_template('index.html', form=form)
-    else:
-        if form.validate_on_submit():
-            url = form.url.data
-            shorturl = random_generator()
-            cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO links (originalurl, shorturl) VALUES (%s,%s)", (url, shorturl,))
-            mysql.connection.commit()
-            session['mojurl'] = shorturl
-            return redirect(url_for('index'))
-        else:
-            return redirect(url_for('index'))
+    return render_template('index.html')
+
+
+@app.route('/short', methods=['POST'])
+def short():
+    url = request.form['longurl']
+    if validators.url(url):
+        shorturl = random_generator()
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO links (originalurl, shorturl) VALUES (%s,%s)", (url, shorturl,))
+        mysql.connection.commit()
+        return jsonify({'shorturl': shorturl})
+    return abort(400)
 
 
 @app.route('/<link>', methods=['GET'])
